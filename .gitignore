@@ -20,3 +20,6 @@ Desktop.ini
 *.rar
 *.zip
 *.7z
+
+# Snapshots locais de versões (não publicar)
+_backups/

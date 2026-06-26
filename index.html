@@ -1,73 +1,104 @@
 <!DOCTYPE html>
-<!-- Portfolio v7 -->
-<html lang="pt-BR">
+<!-- Portfolio v39 — favicon PB correto (monograma entrelaçado, 256px/19KB) -->
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pedro Bonini · Desenvolvedor Web</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("pb-theme") || "dark"; /* começa escuro */
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ===================== NAV PILL — sliding indicator ===================== -->
-  <header class="nav" aria-label="Navegação principal">
-    <nav class="nav-pill">
-      <span class="nav-indicator" aria-hidden="true"></span>
-      <a href="#hero" class="nav-link is-active" data-section="hero">
-        <span class="nav-dot"></span>
-        Início
+  <!-- ===================== CUSTOM CURSOR ===================== -->
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label" id="cursorLabel"></span></div>
+
+  <!-- ===================== SCROLL PROGRESS ===================== -->
+  <div class="scrollbar" aria-hidden="true"><span class="scrollbar-fill" id="scrollbarFill"></span></div>
+
+  <!-- ===================== DOCK NAV ===================== -->
+  <header class="dock" aria-label="Navegação principal">
+    <nav class="dock-pill">
+      <span class="dock-indicator" aria-hidden="true"></span>
+      <a href="#hero" class="dock-item is-active" data-section="hero" aria-label="Início">
+        <svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 10L11 4l7 6M6 9v8h10V9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="dock-tip" data-i18n="nav.home">Início</span>
       </a>
-      <a href="#process" class="nav-link" data-section="process">Processo</a>
-      <a href="#skills" class="nav-link" data-section="skills">Habilidades</a>
-      <a href="#projects" class="nav-link" data-section="projects">Projetos</a>
-      <a href="#contact" class="nav-link nav-cta">
-        Contato
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <a href="#process" class="dock-item" data-section="process" aria-label="Processo">
+        <svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="5.5" cy="11" r="2.2" stroke="currentColor" stroke-width="1.6"/><circle cx="16.5" cy="11" r="2.2" stroke="currentColor" stroke-width="1.6"/><path d="M7.7 11h6.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span class="dock-tip" data-i18n="nav.process">Processo</span>
       </a>
+      <a href="#skills" class="dock-item" data-section="skills" aria-label="Habilidades">
+        <svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8L11 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="dock-tip" data-i18n="nav.skills">Habilidades</span>
+      </a>
+      <a href="#projects" class="dock-item" data-section="projects" aria-label="Projetos">
+        <svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1.4" stroke="currentColor" stroke-width="1.6"/><rect x="12" y="4" width="6" height="6" rx="1.4" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="12" width="6" height="6" rx="1.4" stroke="currentColor" stroke-width="1.6"/><rect x="12" y="12" width="6" height="6" rx="1.4" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="dock-tip" data-i18n="nav.projects">Projetos</span>
+      </a>
+      <span class="dock-sep" aria-hidden="true"></span>
+      <a href="#contact" class="dock-item dock-cta" data-section="contact" aria-label="Contato">
+        <svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="4" y="6" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 7l6 4.5L17 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="dock-tip" data-i18n="nav.contact">Contato</span>
+      </a>
+      <span class="dock-sep" aria-hidden="true"></span>
+      <button class="dock-tool" id="langToggle" type="button" aria-label="Idioma">
+        <span class="dock-tool-lang" id="langLabel">PT</span>
+        <span class="dock-tip" data-i18n="nav.lang">Idioma</span>
+      </button>
+      <button class="dock-tool" id="themeToggle" type="button" aria-label="Tema">
+        <svg class="ico ico-sun" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="3.4" stroke="currentColor" stroke-width="1.5"/><path d="M9 1.5V3M9 15v1.5M1.5 9H3m12 0h1.5M3.7 3.7l1.1 1.1m8.4 8.4l1.1 1.1m0-10.6l-1.1 1.1M4.8 13.2l-1.1 1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg class="ico ico-moon" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 11.2A6.5 6.5 0 0 1 6.8 2.5a6.5 6.5 0 1 0 8.7 8.7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="dock-tip" data-i18n="nav.theme">Tema</span>
+      </button>
     </nav>
   </header>
 
   <main>
 
-    <!-- ===================== HERO ===================== -->
-    <section id="hero" class="hero">
-      <div class="hero-grid">
+    <!-- ===================== STAGE (intro → hero) ===================== -->
+    <section id="hero" class="stage">
+      <div class="stage-pin" id="stagePin">
 
-        <!-- Left -->
-        <div class="hero-text">
-          <span class="hero-pill">
-            <span class="hero-pill-dot"></span>
-            Disponível para projetos · 2026
+        <!-- SCENE 1 — intro -->
+        <div class="scene scene--intro" id="sceneIntro">
+          <span class="intro-eyebrow" data-i18n="intro.eyebrow">PORTFÓLIO · 2026</span>
+          <h1 class="intro-title" id="introTitle" data-i18n="intro.title">Bem-vindo ao meu portfólio</h1>
+          <span class="intro-sub" data-i18n="intro.sub">Pedro Bonini · Desenvolvedor Web</span>
+          <span class="scroll-hint" id="scrollHint">
+            <span data-i18n="intro.scroll">role para começar</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
+        </div>
 
-          <h1 class="hero-h1">
-            Olá, eu sou<br>
-            <em>Pedro Bonini</em>.<br>
-            Desenvolvedor Web.
-          </h1>
-
-          <p class="hero-lead">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam.
-          </p>
-
+        <!-- SCENE 2 — hero -->
+        <div class="scene scene--hero" id="sceneHero">
+          <span class="hero-eyebrow" data-i18n="hero.eyebrow">DISPONÍVEL PARA PROJETOS · 2026</span>
+          <h2 class="hero-name" data-i18n="hero.name">Pedro Bonini</h2>
+          <p class="hero-role" data-i18n="hero.role">Desenvolvedor web — construo interfaces e sistemas que respiram.</p>
           <div class="hero-actions">
             <a href="#contact" class="btn btn--primary">
-              Iniciar conversa
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <span data-i18n="hero.cta">Iniciar conversa</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
 
           <div class="cls" aria-label="Tecnologias">
-            <span class="cls-label">TRABALHA COM</span>
+            <span class="cls-label" data-i18n="hero.worksWith">STACKS</span>
             <div class="cls-row">
               <div class="cls-track">
                 <span class="cls-item"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 6 L3 10 L7 14 M13 6 L17 10 L13 14 M11 4 L9 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>HTML</span>
@@ -80,7 +111,6 @@
                 <span class="cls-item"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="7" cy="10" r="5" stroke="currentColor" stroke-width="1.3" fill="none"/><circle cx="13" cy="10" r="5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>Figma</span>
                 <span class="cls-item"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6 H17 M10 6 V16" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>TypeScript</span>
 
-                <!-- duplicado pra loop seamless -->
                 <span class="cls-item" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M7 6 L3 10 L7 14 M13 6 L17 10 L13 14 M11 4 L9 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>HTML</span>
                 <span class="cls-item" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M5 4 H8 Q5 4 5 7 V9 Q5 10 3 10 Q5 10 5 11 V13 Q5 16 8 16 H5 M15 4 H12 Q15 4 15 7 V9 Q15 10 17 10 Q15 10 15 11 V13 Q15 16 12 16 H15" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>CSS</span>
                 <span class="cls-item" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M5 4 H8 V13 Q8 16 5 16 M11 13 Q11 16 14 16 Q17 16 17 13 Q17 11 14 11 Q11 11 11 8 Q11 4 14 4 Q17 4 17 7" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>JavaScript</span>
@@ -95,299 +125,138 @@
           </div>
         </div>
 
-        <!-- Right: dashboard metric card comparison -->
-        <div class="hero-demo">
-          <div class="demo-frame">
-
-            <span class="demo-tag demo-tag--before">ANTES</span>
-            <span class="demo-tag demo-tag--after">DEPOIS</span>
-
-            <div class="compare" id="compare">
-
-              <!-- BAD card -->
-              <div class="side side--ugly">
-                <div class="ucard">
-                  <div class="ucard-head">
-                    <div class="ucard-icon">📊</div>
-                    <h3 class="ucard-title">VENDAS DO MÊS!! 💰</h3>
-                  </div>
-                  <div class="ucard-value">R$ 24580,00</div>
-                  <div class="ucard-change">
-                    <span class="ucard-arrow">↑</span>
-                    +12% vs mes passado
-                  </div>
-                  <div class="ucard-bars" aria-hidden="true">
-                    <span style="height: 30%;"></span>
-                    <span style="height: 70%;"></span>
-                    <span style="height: 45%;"></span>
-                    <span style="height: 90%;"></span>
-                    <span style="height: 55%;"></span>
-                    <span style="height: 75%;"></span>
-                  </div>
-                  <button class="ucard-btn">VER MAIS!!</button>
-                </div>
-              </div>
-
-              <!-- GOOD card -->
-              <div class="side side--clean">
-                <div class="ccard">
-                  <div class="ccard-grain"></div>
-                  <span class="ccard-lang">PT/BR</span>
-                  <span class="ccard-eyebrow">— Vendas / Mês</span>
-                  <div class="ccard-value">R$ <em>24.580</em><span class="ccard-cents">,00</span></div>
-                  <div class="ccard-change">
-                    <svg class="change-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                      <path d="M11 9V3M11 3H5M11 3L3 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <strong>+12,4%</strong>
-                    <span>vs. mês anterior</span>
-                  </div>
-                  <svg class="ccard-spark" viewBox="0 0 220 50" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M0 38 L36 30 L72 34 L108 22 L144 26 L180 14 L220 8" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="220" cy="8" r="2.5" fill="currentColor"/>
-                  </svg>
-                  <a href="#" class="ccard-link">
-                    Detalhes
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-
-              <div class="divider"></div>
-              <div class="drag-handle">
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M5 3L1 7L5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>PASSE</span>
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M9 3L13 7L9 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="demo-labels">
-            <span class="demo-label">
-              <span class="demo-dot demo-dot--mute"></span>
-              SEM UM ESPECIALISTA
-            </span>
-            <span class="demo-label">
-              <span class="demo-dot demo-dot--live"></span>
-              COM UM ESPECIALISTA
-            </span>
-          </div>
-        </div>
-
       </div>
     </section>
 
 
-    <!-- ===================== PROCESS ===================== -->
+    <!-- ===================== PROCESS (faixas full-bleed) ===================== -->
     <section id="process" class="process">
       <header class="section-head">
-        <span class="section-kicker"><span class="kicker-bar"></span>Processo</span>
-        <h2 class="section-title">Três passos, sem teatro.</h2>
-        <p class="section-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        <span class="section-kicker"><span class="kicker-bar"></span><span data-i18n="process.kicker">Processo</span></span>
+        <h2 class="section-title" data-i18n="process.title">Três passos, sem teatro.</h2>
+        <p class="section-lead" data-i18n="process.lead">Sem mistério: a gente alinha o objetivo, desenha a solução e entrega no ar. Cada etapa com você junto, vendo o progresso.</p>
       </header>
-
-      <div class="process-grid">
-
-        <article class="process-card process-card--1">
-          <div class="process-card-top">
-            <span class="process-num">01</span>
-            <span class="process-tag">Shape</span>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <div class="step-body">
+            <span class="step-tag">Shape</span>
+            <h3 class="step-name" data-i18n="process.1.title">Estruturar</h3>
+            <p class="step-text" data-i18n="process.1.text">Entendo o problema, mapeio o conteúdo e monto a arquitetura da informação antes de qualquer pixel.</p>
           </div>
-          <h3 class="process-card-title">Estruturar</h3>
-          <p class="process-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae lectus ac libero rutrum dignissim.</p>
-          <div class="process-card-foot">
-            <span class="foot-line"></span>
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-              <path d="M5 11L17 11M11 5L11 17" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <rect x="2.5" y="2.5" width="17" height="17" rx="4" stroke="currentColor" stroke-width="1.2"/>
-            </svg>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <div class="step-body">
+            <span class="step-tag">Visualize</span>
+            <h3 class="step-name" data-i18n="process.2.title">Projetar</h3>
+            <p class="step-text" data-i18n="process.2.text">Transformo a estrutura em layout: tipografia, ritmo, cor e movimento — tudo com intenção.</p>
           </div>
-        </article>
-
-        <article class="process-card process-card--2">
-          <div class="process-card-top">
-            <span class="process-num">02</span>
-            <span class="process-tag">Visualize</span>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <div class="step-body">
+            <span class="step-tag">Ship</span>
+            <h3 class="step-name" data-i18n="process.3.title">Entregar</h3>
+            <p class="step-text" data-i18n="process.3.text">Código limpo, performático e responsivo, publicado e pronto pra escalar.</p>
           </div>
-          <h3 class="process-card-title">Projetar</h3>
-          <p class="process-card-text">Curabitur tristique odio nec ipsum aliquam, vitae aliquet justo egestas. Suspendisse potenti integer.</p>
-          <div class="process-card-foot">
-            <span class="foot-line"></span>
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-              <circle cx="11" cy="11" r="2.5" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.2"/>
-            </svg>
-          </div>
-        </article>
-
-        <article class="process-card process-card--3">
-          <div class="process-card-top">
-            <span class="process-num">03</span>
-            <span class="process-tag">Ship</span>
-          </div>
-          <h3 class="process-card-title">Entregar</h3>
-          <p class="process-card-text">Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh.</p>
-          <div class="process-card-foot">
-            <span class="foot-line"></span>
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-              <path d="M3 11L9 17L19 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </article>
-
-      </div>
+        </li>
+      </ol>
     </section>
 
 
-    <!-- ===================== SKILLS ===================== -->
+    <!-- ===================== SKILLS (flow / zigue-zague + trilha) ===================== -->
     <section id="skills" class="skills">
       <header class="section-head">
-        <span class="section-kicker"><span class="kicker-bar"></span>Habilidades</span>
-        <h2 class="section-title">Ferramentas que viram <em>artesanato</em>.</h2>
-        <p class="section-lead">Cada ícone tem vida própria. Passe o mouse — eles respondem com a alma certa.</p>
+        <span class="section-kicker"><span class="kicker-bar"></span><span data-i18n="skills.kicker">Habilidades</span></span>
+        <h2 class="section-title" data-i18n="skills.title">Habilidades que viram <em>artesanato</em>.</h2>
+        <p class="section-lead" data-i18n="skills.lead">Oito territórios do meu trabalho. Role — eles passam de lado, um por um.</p>
+        <span class="hint">
+          <span data-i18n="skills.hint">role para percorrer</span>
+          <svg width="24" height="14" viewBox="0 0 24 14" fill="none" aria-hidden="true"><path d="M1 7h21M16 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
       </header>
 
-      <ul class="skills-list">
-
-        <!-- 01 FRONTEND -->
-        <li class="skill-row skill-row--1">
-          <div class="skill-ghost"></div>
-          <article class="skill-card skill-card--1" data-skill="frontend">
-            <div class="skill-icon skill-ico-frontend">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <path class="bracket bracket--l" d="M28 24 L14 40 L28 56" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path class="bracket bracket--r" d="M52 24 L66 40 L52 56" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path class="slash" d="M46 18 L34 62" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <circle class="caret" cx="68" cy="62" r="2.4" fill="currentColor"/>
-              </svg>
+      <div class="skills-stage" id="skillsStage">
+        <div class="skills-rail" id="skillsRail">
+          <article class="sk-panel" data-skill="frontend">
+            <span class="sk-index" aria-hidden="true">01</span>
+            <div class="sk-body">
+              <span class="sk-tag">Interface</span>
+              <h3 class="sk-name" data-i18n="skill.frontend.name">Frontend</h3>
+              <p class="sk-desc" data-i18n="skill.frontend.text">HTML, CSS, JS, React. A camada visível e tudo que segura ela.</p>
             </div>
-            <h3 class="skill-title">Frontend <sup class="skill-num">01</sup></h3>
-            <p class="skill-text">HTML, CSS, JS. A camada visível e tudo que segura ela.</p>
           </article>
-        </li>
-
-        <!-- 02 ANIMATION -->
-        <li class="skill-row skill-row--2">
-          <div class="skill-ghost"></div>
-          <article class="skill-card skill-card--2" data-skill="motion">
-            <div class="skill-icon skill-ico-motion">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <path class="ground" d="M10 60 Q40 60 70 60" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <circle class="ball" cx="40" cy="50" r="7" fill="currentColor"/>
-                <ellipse class="shadow" cx="40" cy="62" rx="6" ry="1.4" fill="currentColor" opacity=".25"/>
-              </svg>
+          <article class="sk-panel" data-skill="backend">
+            <span class="sk-index" aria-hidden="true">02</span>
+            <div class="sk-body">
+              <span class="sk-tag">Systems</span>
+              <h3 class="sk-name" data-i18n="skill.backend.name">Backend &amp; API</h3>
+              <p class="sk-desc" data-i18n="skill.backend.text">Laravel, Node, REST. A engrenagem que ninguém vê, mas todo mundo sente.</p>
             </div>
-            <h3 class="skill-title">Animação <sup class="skill-num">02</sup></h3>
-            <p class="skill-text">GSAP, Motion, CSS keyframes. Cadência que respira.</p>
           </article>
-        </li>
-
-        <!-- 03 UI/UX -->
-        <li class="skill-row skill-row--3">
-          <div class="skill-ghost"></div>
-          <article class="skill-card skill-card--3" data-skill="ux">
-            <div class="skill-icon skill-ico-ux">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <rect class="frame" x="14" y="16" width="52" height="48" rx="4" stroke="currentColor" stroke-width="1.6"/>
-                <line class="topbar" x1="14" y1="28" x2="66" y2="28" stroke="currentColor" stroke-width="1.4"/>
-                <circle cx="20" cy="22" r="1.4" fill="currentColor"/>
-                <circle cx="25" cy="22" r="1.4" fill="currentColor"/>
-                <rect class="line line--1" x="22" y="36" width="20" height="4" rx="2" fill="currentColor"/>
-                <rect class="line line--2" x="22" y="44" width="32" height="4" rx="2" fill="currentColor" opacity=".5"/>
-                <rect class="line line--3" x="22" y="52" width="14" height="4" rx="2" fill="currentColor" opacity=".5"/>
-              </svg>
+          <article class="sk-panel" data-skill="ux">
+            <span class="sk-index" aria-hidden="true">03</span>
+            <div class="sk-body">
+              <span class="sk-tag">Design</span>
+              <h3 class="sk-name" data-i18n="skill.ux.name">UI &amp; UX</h3>
+              <p class="sk-desc" data-i18n="skill.ux.text">Hierarquia, ritmo, decisões que parecem óbvias.</p>
             </div>
-            <h3 class="skill-title">UI &amp; UX <sup class="skill-num">03</sup></h3>
-            <p class="skill-text">Hierarquia, ritmo, decisões que parecem óbvias.</p>
           </article>
-        </li>
-
-        <!-- 04 PERFORMANCE -->
-        <li class="skill-row skill-row--4">
-          <div class="skill-ghost"></div>
-          <article class="skill-card skill-card--4" data-skill="perf">
-            <div class="skill-icon skill-ico-perf">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <defs>
-                  <clipPath id="bolt-clip">
-                    <path d="M44 8L20 44H38L34 72L60 32H42L44 8Z"/>
-                  </clipPath>
-                </defs>
-                <path class="bolt-stroke" d="M44 8L20 44H38L34 72L60 32H42L44 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
-                <g clip-path="url(#bolt-clip)">
-                  <rect class="bolt-fill" x="0" y="80" width="80" height="80" fill="currentColor"/>
-                </g>
-              </svg>
+          <article class="sk-panel" data-skill="motion">
+            <span class="sk-index" aria-hidden="true">04</span>
+            <div class="sk-body">
+              <span class="sk-tag">Motion</span>
+              <h3 class="sk-name" data-i18n="skill.motion.name">Animação</h3>
+              <p class="sk-desc" data-i18n="skill.motion.text">GSAP, Motion, CSS keyframes. Cadência que respira.</p>
             </div>
-            <h3 class="skill-title">Performance <sup class="skill-num">04</sup></h3>
-            <p class="skill-text">Bundle leve, render previsível, ms importam.</p>
           </article>
-        </li>
-
-        <!-- 05 RESPONSIVE — impeccable-style frame morph -->
-        <li class="skill-row skill-row--5">
-          <div class="skill-ghost"></div>
-          <article class="skill-card skill-card--5" data-skill="responsive">
-            <div class="skill-icon skill-ico-responsive">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <rect class="res-frame" x="12" y="20" width="56" height="40" rx="3" stroke="currentColor" stroke-width="1.6"/>
-                <rect class="res-img"   x="18" y="26" width="18" height="16" rx="2" fill="currentColor" opacity=".28"/>
-                <rect class="res-title" x="42" y="27" width="20" height="3.5" rx="1" fill="currentColor"/>
-                <rect class="res-line1" x="42" y="34" width="20" height="2.5" rx="1" fill="currentColor" opacity=".5"/>
-                <rect class="res-line2" x="42" y="40" width="13" height="2.5" rx="1" fill="currentColor" opacity=".5"/>
-              </svg>
+          <article class="sk-panel" data-skill="perf">
+            <span class="sk-index" aria-hidden="true">05</span>
+            <div class="sk-body">
+              <span class="sk-tag">Speed</span>
+              <h3 class="sk-name" data-i18n="skill.perf.name">Performance</h3>
+              <p class="sk-desc" data-i18n="skill.perf.text">Bundle leve, render previsível, ms importam.</p>
             </div>
-            <h3 class="skill-title">Responsivo <sup class="skill-num">05</sup></h3>
-            <p class="skill-text">Do desktop ao polegar. Sem quebra, sem desculpa.</p>
           </article>
-        </li>
-
-        <!-- 06 ACESSIBILIDADE — focus brackets -->
-        <li class="skill-row skill-row--6">
-          <div class="skill-ghost"></div>
-          <article class="skill-card skill-card--6" data-skill="a11y">
-            <div class="skill-icon skill-ico-a11y">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <path class="bk bk--tl" d="M22 28 L22 22 L28 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-                <path class="bk bk--tr" d="M58 28 L58 22 L52 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-                <path class="bk bk--bl" d="M22 52 L22 58 L28 58" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-                <path class="bk bk--br" d="M58 52 L58 58 L52 58" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-                <circle class="a11y-ring" cx="40" cy="40" r="9" stroke="currentColor" stroke-width="1.6" fill="none"/>
-                <circle class="a11y-dot" cx="40" cy="40" r="3" fill="currentColor"/>
-              </svg>
+          <article class="sk-panel" data-skill="responsive">
+            <span class="sk-index" aria-hidden="true">06</span>
+            <div class="sk-body">
+              <span class="sk-tag">Adapt</span>
+              <h3 class="sk-name" data-i18n="skill.responsive.name">Responsividade</h3>
+              <p class="sk-desc" data-i18n="skill.responsive.text">Do desktop ao polegar. Sem quebra, sem desculpa.</p>
             </div>
-            <h3 class="skill-title">Acessibilidade <sup class="skill-num">06</sup></h3>
-            <p class="skill-text">Foco visível, contraste, semântica. Web pra todos.</p>
           </article>
-        </li>
-
-        <!-- 07 SECURITY (NEW) -->
-        <li class="skill-row skill-row--7">
-          <div class="skill-ghost"></div>
-          <article class="skill-card skill-card--7" data-skill="security">
-            <div class="skill-icon skill-ico-security">
-              <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <path class="lock-shackle" d="M28 38 V28 Q28 18 40 18 Q52 18 52 28 V38" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-                <rect class="lock-body" x="22" y="38" width="36" height="28" rx="3" stroke="currentColor" stroke-width="2" fill="none"/>
-                <g class="lock-key">
-                  <circle cx="40" cy="50" r="3" fill="currentColor"/>
-                  <rect x="38.5" y="50" width="3" height="9" fill="currentColor"/>
-                </g>
-              </svg>
+          <article class="sk-panel" data-skill="a11y">
+            <span class="sk-index" aria-hidden="true">07</span>
+            <div class="sk-body">
+              <span class="sk-tag">Access</span>
+              <h3 class="sk-name" data-i18n="skill.a11y.name">Acessibilidade</h3>
+              <p class="sk-desc" data-i18n="skill.a11y.text">Foco visível, contraste, semântica. Web pra todos.</p>
             </div>
-            <h3 class="skill-title">Segurança <sup class="skill-num">07</sup></h3>
-            <p class="skill-text">Validação, autenticação, dados em trânsito. Web sem brechas.</p>
           </article>
-        </li>
-
-      </ul>
+          <article class="sk-panel" data-skill="security">
+            <span class="sk-index" aria-hidden="true">08</span>
+            <div class="sk-body">
+              <span class="sk-tag">Defense</span>
+              <h3 class="sk-name" data-i18n="skill.security.name">Segurança</h3>
+              <p class="sk-desc" data-i18n="skill.security.text">Validação, autenticação, dados em trânsito. Web sem brechas.</p>
+            </div>
+          </article>
+          <article class="sk-panel" data-skill="deploy">
+            <span class="sk-index" aria-hidden="true">09</span>
+            <div class="sk-body">
+              <span class="sk-tag">Pipeline</span>
+              <h3 class="sk-name" data-i18n="skill.deploy.name">Deploy</h3>
+              <p class="sk-desc" data-i18n="skill.deploy.text">Git, CI/CD, deploy contínuo. Do commit ao ar, sem fricção.</p>
+            </div>
+          </article>
+        </div>
+        <div class="sk-hud" aria-hidden="true">
+          <span class="sk-hud-count"><b id="skNow">01</b><span class="sk-hud-sep">/</span>09</span>
+          <span class="sk-hud-bar"><i id="skBar"></i></span>
+        </div>
+      </div>
     </section>
 
 
@@ -395,99 +264,99 @@
     <section id="projects" class="projects">
       <header class="section-head section-head--split">
         <div>
-          <span class="section-kicker"><span class="kicker-bar"></span>Projetos selecionados</span>
-          <h2 class="section-title">Trabalho que <em>respira</em>.</h2>
+          <span class="section-kicker"><span class="kicker-bar"></span><span data-i18n="projects.kicker">Projetos selecionados</span></span>
+          <h2 class="section-title" data-i18n="projects.title">Trabalho que <em>respira</em>.</h2>
         </div>
-        <p class="section-lead section-lead--align">Quatro recortes recentes — clique pra ver o estudo de caso completo.</p>
+        <p class="section-lead section-lead--align" data-i18n="projects.lead">Três projetos recentes — clique pra ver o estudo de caso completo.</p>
       </header>
-
-      <div class="projects-grid">
-
-        <article class="proj">
-          <div class="proj-meta">
-            <span class="proj-client">Atelier Sit</span>
-            <span class="proj-year">2025</span>
-          </div>
-          <h3 class="proj-title">Editorial em movimento</h3>
-          <p class="proj-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <ul class="proj-tags">
-            <li>Editorial</li>
-            <li>GSAP</li>
-            <li>WebGL</li>
-          </ul>
-        </article>
-
-        <article class="proj">
-          <div class="proj-meta">
-            <span class="proj-client">Marca Lorem</span>
-            <span class="proj-year">2024</span>
-          </div>
-          <h3 class="proj-title">Dashboard sem ruído</h3>
-          <p class="proj-text">Curabitur tristique odio nec ipsum aliquam vitae aliquet justo egestas. Suspendisse potenti integer maximus.</p>
-          <ul class="proj-tags">
-            <li>React</li>
-            <li>Design system</li>
-            <li>Charts</li>
-          </ul>
-        </article>
-
-        <article class="proj">
-          <div class="proj-meta">
-            <span class="proj-client">Studio Ipsum</span>
-            <span class="proj-year">2024</span>
-          </div>
-          <h3 class="proj-title">Landing terracota</h3>
-          <p class="proj-text">Aenean sollicitudin lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
-          <ul class="proj-tags">
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>GSAP</li>
-          </ul>
-        </article>
-
-        <article class="proj">
-          <div class="proj-meta">
-            <span class="proj-client">Casa Dolor</span>
-            <span class="proj-year">2023</span>
-          </div>
-          <h3 class="proj-title">App de leitura lenta</h3>
-          <p class="proj-text">Nisi elit consequat ipsum, nec sagittis sem nibh id elit. Sed posuere consectetur est at lobortis.</p>
-          <ul class="proj-tags">
-            <li>Mobile</li>
-            <li>Vue</li>
-            <li>Type</li>
-          </ul>
-        </article>
-
-      </div>
+      <ul class="px-list" id="pxList">
+        <li class="px-row">
+          <a class="px-link" href="#">
+            <span class="px-num">01</span>
+            <h3 class="px-name" data-i18n="proj.5.title">Household Wallet</h3>
+            <span class="px-year">2026</span>
+            <span class="px-arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="px-detail"><div class="px-detail-in">
+            <p class="px-text" data-i18n="proj.5.text">App pessoal de controle financeiro: orçamento, metas, recorrentes, financiamentos e investimentos em BRL e USD, com gráficos em tempo real.</p>
+            <ul class="px-tags"><li>Finanças</li><li>Next.js</li><li>Supabase</li><li>Recharts</li></ul>
+          </div></div>
+        </li>
+        <li class="px-row">
+          <a class="px-link" href="#">
+            <span class="px-num">02</span>
+            <h3 class="px-name" data-i18n="proj.6.title">Lirismo Digital</h3>
+            <span class="px-year">2025</span>
+            <span class="px-arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="px-detail"><div class="px-detail-in">
+            <p class="px-text" data-i18n="proj.6.text">Marketplace de e-books com fluxo de autores, aprovação de obras, compra e leitura no navegador — com storage de PDFs e capas.</p>
+            <ul class="px-tags"><li>Bookstore</li><li>Fastify</li><li>Prisma</li><li>Next.js</li></ul>
+          </div></div>
+        </li>
+        <li class="px-row">
+          <a class="px-link" href="#">
+            <span class="px-num">03</span>
+            <h3 class="px-name" data-i18n="proj.7.title">Pedido sem fila</h3>
+            <span class="px-year">2024</span>
+            <span class="px-arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="px-detail"><div class="px-detail-in">
+            <p class="px-text" data-i18n="proj.7.text">App mobile da cantina de uma escola técnica: login, cardápio por categoria, carrinho em tempo real e histórico de pedidos. Sem fila, sem papel.</p>
+            <ul class="px-tags"><li>Cantina IFSP</li><li>React Native</li><li>Laravel</li></ul>
+          </div></div>
+        </li>
+      </ul>
     </section>
 
 
-    <!-- ===================== FOOTER ===================== -->
-    <footer id="contact" class="foot">
-      <div class="foot-row">
-        <a href="#hero" class="foot-mark">
-          <span class="foot-mark-dot"></span>
-          pedro bonini
-        </a>
-        <nav class="foot-social">
-          <a href="#">LinkedIn</a>
-          <a href="#">GitHub</a>
-          <a href="#">Read.cv</a>
-          <a href="mailto:hello@bonini.dev">hello@bonini.dev</a>
-        </nav>
+    <!-- ===================== CONTACT — circle burst ===================== -->
+    <section id="contact" class="burst">
+      <div class="burst-pin" id="burstPin">
+        <div class="burst-circle" id="burstCircle"></div>
+        <span class="burst-label" data-i18n="burst.label">Vamos trabalhar</span>
+        <span class="burst-hint" id="burstHint">
+          <span data-i18n="burst.hint">continue rolando</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <div class="burst-content" id="burstContent">
+          <span class="burst-eyebrow" data-i18n="burst.eyebrow">DISPONÍVEL PARA PROJETOS · 2026</span>
+          <a class="burst-mail" href="mailto:hello@bonini.dev">hello@bonini.dev</a>
+          <div class="burst-socials">
+            <a href="#">LinkedIn</a><a href="#">GitHub</a><a href="#">Read.cv</a>
+          </div>
+          <span class="burst-copy" data-i18n="foot.copy">© 2026 · Pedro Bonini · São Paulo</span>
+        </div>
       </div>
-      <div class="foot-row foot-row--meta">
-        <span class="foot-meta">© 2026 · Pedro Bonini · São Paulo</span>
-        <span class="foot-meta">v7.0 · projetos sem número, bola com squash corrigido, responsivo fiel</span>
-      </div>
-    </footer>
+    </section>
 
   </main>
 
-  <!-- GSAP -->
+  <!-- selo giratório flutuante — sempre visível, leva pro WhatsApp -->
+  <a class="contact-badge" id="contactBadge" href="https://wa.me/5518997954012" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg class="badge-ring" viewBox="0 0 200 200" aria-hidden="true">
+      <defs>
+        <path id="badgeArc" fill="none" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/>
+      </defs>
+      <text>
+        <textPath href="#badgeArc" startOffset="0" textLength="490" lengthAdjust="spacing" data-i18n="badge.text">VAMOS CONVERSAR · ENTRE EM CONTATO · </textPath>
+      </text>
+    </svg>
+    <img class="badge-photo" src="assets/pedro.jpg" alt="Pedro Bonini" />
+  </a>
+
+  <!-- fallback: libera o site se o GSAP não carregar -->
+  <script>
+    setTimeout(function () {
+      if (window.gsap) return;
+      var si = document.getElementById("sceneIntro"); if (si) si.style.display = "none";
+      var sh = document.getElementById("sceneHero"); if (sh) { sh.style.opacity = "1"; sh.style.visibility = "visible"; }
+      var d = document.querySelector(".dock"); if (d) d.style.opacity = "1";
+    }, 8000);
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
