@@ -5,26 +5,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 const I18N = {
   pt: {
-    "intro.eyebrow": "PORTFÓLIO · 2026",
+    "intro.eyebrow": "PORTFÓLIO · {year}",
     "intro.title": "Bem-vindo ao meu portfólio",
     "intro.sub": "Pedro Bonini · Desenvolvedor Web",
     "intro.scroll": "role para começar",
-
+ 
     "nav.home": "Início", "nav.process": "Processo", "nav.skills": "Habilidades",
     "nav.projects": "Projetos", "nav.contact": "Contato", "nav.lang": "Idioma", "nav.theme": "Tema",
-
-    "hero.eyebrow": "DISPONÍVEL PARA PROJETOS · 2026",
+ 
+    "hero.eyebrow": "DISPONÍVEL PARA PROJETOS · {year}",
     "hero.name": "Pedro Bonini",
-    "hero.role": "Desenvolvedor web — construo interfaces e sistemas que respiram.",
+    "hero.role": "Desenvolvedor web, construo interfaces e sistemas que respiram.",
     "hero.cta": "Iniciar conversa",
     "hero.worksWith": "STACKS",
-    "burst.label": "Vamos trabalhar",
+    "burst.label": "Vamos trabalhar<br>juntos?",
     "burst.hint": "continue rolando",
-    "burst.eyebrow": "DISPONÍVEL PARA PROJETOS · 2026",
+    "burst.eyebrow": "DISPONÍVEL PARA PROJETOS · {year}",
     "burst.back": "role para voltar",
     "burst.reveal": "role para revelar",
     "badge.text": "VAMOS CONVERSAR · ENTRE EM CONTATO · ",
-
+    "contact.email": "contato@obonini.dev.br",
+    "wa.text": "Olá, Pedro! Vi seu portfólio e queria conversar sobre um projeto.",
+ 
     "process.kicker": "Processo",
     "process.title": "Três passos, sem teatro.",
     "process.lead": "Sem mistério: a gente alinha o objetivo, desenha a solução e entrega no ar. Cada etapa com você junto, vendo o progresso.",
@@ -34,13 +36,13 @@ const I18N = {
     "process.2.text": "Transformo a estrutura em layout: tipografia, ritmo, cor e movimento — tudo com intenção.",
     "process.3.title": "Entregar",
     "process.3.text": "Código limpo, performático e responsivo, publicado e pronto pra escalar.",
-
+ 
     "skills.kicker": "Habilidades",
     "skills.title": "Habilidades que viram <em>artesanato</em>.",
-    "skills.lead": "Oito territórios do meu trabalho. Role — eles passam de lado, um por um.",
+    "skills.lead": "Nove territórios do meu trabalho. Role — eles passam de lado, um por um.",
     "skills.hint": "role para percorrer",
     "cursor.viewProject": "Ver projeto",
-
+ 
     "skill.frontend.name": "Frontend",
     "skill.frontend.text": "HTML, CSS, JS, React. A camada visível e tudo que segura ela.",
     "skill.backend.name": "Backend &amp; API",
@@ -59,7 +61,7 @@ const I18N = {
     "skill.security.text": "Validação, autenticação, dados em trânsito. Web sem brechas.",
     "skill.deploy.name": "Deploy",
     "skill.deploy.text": "Git, CI/CD, deploy contínuo. Do commit ao ar, sem fricção.",
-
+ 
     "projects.kicker": "Projetos selecionados",
     "projects.title": "Trabalho que <em>respira</em>.",
     "projects.lead": "Três projetos recentes — clique pra ver o estudo de caso completo.",
@@ -69,40 +71,34 @@ const I18N = {
     "proj.2.text": "Painel administrativo com design system próprio: dados claros, sem poluição visual.",
     "proj.3.title": "Landing terracota",
     "proj.3.text": "Landing page de alta conversão com identidade marcante e carregamento instantâneo.",
-    "proj.4.title": "App de leitura lenta",
-    "proj.4.text": "Aplicativo mobile focado em foco: leitura sem distração, com tipografia caprichada.",
-    "proj.5.title": "Household Wallet",
-    "proj.5.text": "App pessoal de controle financeiro: orçamento, metas, recorrentes, financiamentos e investimentos em BRL e USD, com gráficos em tempo real.",
-    "proj.6.title": "Lirismo Digital",
-    "proj.6.text": "Marketplace de e-books com fluxo de autores, aprovação de obras, compra e leitura no navegador — com storage de PDFs e capas.",
-    "proj.7.title": "Pedido sem fila",
-    "proj.7.text": "App mobile da cantina de uma escola técnica: login, cardápio por categoria, carrinho em tempo real e histórico de pedidos. Sem fila, sem papel.",
-
-    "foot.copy": "© 2026 · Pedro Bonini · São Paulo"
+ 
+    "foot.copy": "© {year} · Pedro Bonini · São Paulo"
   },
   en: {
-    "intro.eyebrow": "PORTFOLIO · 2026",
-    "intro.title": "Welcome to my portfolio",
+    "intro.eyebrow": "PORTFOLIO · {year}",
+    "intro.title": "Welcome to my<br> portfolio",
     "intro.sub": "Pedro Bonini · Web Developer",
     "intro.scroll": "scroll to begin",
-
+ 
     "nav.home": "Home", "nav.process": "Process", "nav.skills": "Skills",
     "nav.projects": "Projects", "nav.contact": "Contact", "nav.lang": "Language", "nav.theme": "Theme",
-
-    "hero.eyebrow": "AVAILABLE FOR PROJECTS · 2026",
+ 
+    "hero.eyebrow": "AVAILABLE FOR PROJECTS · {year}",
     "hero.name": "Pedro Bonini",
-    "hero.role": "Web developer — I build interfaces and systems that breathe.",
+    "hero.role": "Web developer, I develop interfaces and systems that feel alive.",
     "hero.cta": "Start a conversation",
-    "hero.worksWith": "STACK",
-    "burst.label": "Let's work",
+    "hero.worksWith": "STACKS",
+    "burst.label": "Let's work<br>together?",
     "burst.hint": "keep scrolling",
-    "burst.eyebrow": "AVAILABLE FOR PROJECTS · 2026",
+    "burst.eyebrow": "AVAILABLE FOR PROJECTS · {year}",
     "burst.back": "scroll up to go back",
     "burst.reveal": "scroll to reveal",
     "badge.text": "LET'S TALK · GET IN TOUCH · ",
-
+    "contact.email": "contact@obonini.dev.br",
+    "wa.text": "Hi, Pedro! I saw your portfolio and I'd like to talk about a project.",
+ 
     "process.kicker": "Process",
-    "process.title": "Three steps, no theater.",
+    "process.title": "Three steps, no theatrics.",
     "process.lead": "No mystery: we align the goal, design the solution, and ship it live. Every step with you in the loop, watching progress.",
     "process.1.title": "Structure",
     "process.1.text": "I understand the problem, map the content, and set the information architecture before any pixel.",
@@ -110,13 +106,13 @@ const I18N = {
     "process.2.text": "I turn structure into layout: typography, rhythm, color and motion — all with intent.",
     "process.3.title": "Ship",
     "process.3.text": "Clean, performant, responsive code — shipped and ready to scale.",
-
+ 
     "skills.kicker": "Skills",
     "skills.title": "Skills that become <em>craft</em>.",
-    "skills.lead": "Eight territories of my craft. Scroll — they slide past, one by one.",
+    "skills.lead": "Nine territories of my work. Scroll — they slide past, one by one.",
     "skills.hint": "scroll to move across",
     "cursor.viewProject": "View project",
-
+ 
     "skill.frontend.name": "Frontend",
     "skill.frontend.text": "HTML, CSS, JS, React. The visible layer and all that holds it up.",
     "skill.backend.name": "Backend &amp; API",
@@ -135,7 +131,7 @@ const I18N = {
     "skill.security.text": "Validation, auth, data in transit. Web with no gaps.",
     "skill.deploy.name": "Deploy",
     "skill.deploy.text": "Git, CI/CD, continuous deploy. From commit to live, frictionless.",
-
+ 
     "projects.kicker": "Selected projects",
     "projects.title": "Work that <em>breathes</em>.",
     "projects.lead": "Three recent projects — click to see the full case study.",
@@ -145,28 +141,27 @@ const I18N = {
     "proj.2.text": "Admin panel with its own design system: clear data, no visual clutter.",
     "proj.3.title": "Terracotta landing",
     "proj.3.text": "High-conversion landing with a strong identity and instant loading.",
-    "proj.4.title": "Slow reading app",
-    "proj.4.text": "Mobile app focused on focus: distraction-free reading with careful typography.",
-    "proj.5.title": "Household Wallet",
-    "proj.5.text": "Personal finance app: budget, goals, recurring, financing and investments in BRL and USD, with real-time charts.",
-    "proj.6.title": "Lirismo Digital",
-    "proj.6.text": "E-book marketplace with an author flow, work approval, in-browser buying and reading — plus PDF and cover storage.",
-    "proj.7.title": "Pedido sem fila",
-    "proj.7.text": "Mobile app for a technical school canteen: login, menu by category, real-time cart and order history. No queue, no paper.",
-
-    "foot.copy": "© 2026 · Pedro Bonini · São Paulo"
+ 
+    "foot.copy": "© {year} · Pedro Bonini · São Paulo"
   }
 };
 
 function applyLang(lang) {
   const dict = I18N[lang] || I18N.pt;
+  const year = new Date().getFullYear();   // ano atual, sempre
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (dict[key] != null) el.innerHTML = dict[key];
+    if (dict[key] != null) el.innerHTML = String(dict[key]).replace(/\{year\}/g, year);
   });
   document.documentElement.setAttribute("lang", lang === "en" ? "en" : "pt-BR");
   const label = document.getElementById("langLabel");
   if (label) label.textContent = lang.toUpperCase();
+  // e-mail: mantém o href do mailto em sincronia com o texto do idioma
+  const mail = document.querySelector(".burst-mail");
+  if (mail && dict["contact.email"]) mail.href = "mailto:" + dict["contact.email"];
+  // WhatsApp: mensagem pré-preenchida no idioma atual
+  const wa = document.getElementById("contactBadge");
+  if (wa && dict["wa.text"]) wa.href = "https://wa.me/5518997954012?text=" + encodeURIComponent(dict["wa.text"]);
   try { localStorage.setItem("pb-lang", lang); } catch (e) {}
 }
 function applyTheme(theme) {
@@ -197,12 +192,23 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
   }
-  // navegação ancorada usa o Lenis pra rolar suave
-  function scrollToTarget(sel) {
+  // scroll suave p/ o dock E p/ os links âncora (ex.: CTA "Iniciar conversa"):
+  // velocidade ~constante por distância, pra que os scrubs pinados animem sem quebrar.
+  const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
+  let stageST = null;   // ScrollTrigger do palco intro→hero (setado adiante); usado pra o "início" cair no HERO
+  function slowScrollToY(y) {
+    y = Math.max(0, y);
+    if (!lenis) { window.scrollTo(0, y); return; }
+    const dist = Math.abs(y - window.scrollY);
+    // ~1150px/s de média: rápido, mas ainda dá tempo dos scrubs animarem (1.2s a 4s)
+    const dur = Math.min(4, Math.max(1.2, dist / 1150));
+    lenis.scrollTo(y, { offset: 0, duration: dur, easing: easeInOutSine });
+  }
+  function slowScrollTo(sel) {
     const el = document.querySelector(sel);
     if (!el) return;
-    if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.6 });
-    else el.scrollIntoView({ behavior: "smooth" });
+    if (!lenis) { el.scrollIntoView({ behavior: "smooth" }); return; }
+    slowScrollToY(el.getBoundingClientRect().top + window.scrollY);
   }
 
 
@@ -222,13 +228,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("mouseup", () => cursor.classList.remove("is-down"));
     // cresce sobre elementos interativos
     document.querySelectorAll("a, button, .dock-item, .dock-tool, .skill-card, .cls-item, .scroll-hint").forEach((el) => {
+      if (el.closest(".contact-badge")) return;   // selo tem tratamento próprio (esconde o cursor)
       el.addEventListener("mouseenter", () => cursor.classList.add("is-hover"));
       el.addEventListener("mouseleave", () => cursor.classList.remove("is-hover"));
     });
-    // projetos: cursor vira disco "Ver projeto"
-    document.querySelectorAll(".proj").forEach((el) => {
+    // selo (foto): esconde a bolinha (mix-blend invertia a foto sobre o rosto) — cursor nativo continua visível
+    const badgeHover = document.querySelector(".contact-badge");
+    if (badgeHover) {
+      badgeHover.addEventListener("mouseenter", () => cursor.classList.add("is-hidden"));
+      badgeHover.addEventListener("mouseleave", () => cursor.classList.remove("is-hidden"));
+    }
+    // projetos: cursor vira disco "Em breve" (estudos de caso ainda não publicados)
+    document.querySelectorAll(".px-link").forEach((el) => {
       el.addEventListener("mouseenter", () => {
-        if (cursorLabel) cursorLabel.textContent = (I18N[lang] || I18N.pt)["cursor.viewProject"] || "Ver projeto";
+        if (cursorLabel) cursorLabel.textContent = (I18N[lang] || I18N.pt)["cursor.comingSoon"] || "Em breve";
         cursor.classList.add("is-view");
       });
       el.addEventListener("mouseleave", () => cursor.classList.remove("is-view"));
@@ -324,6 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
     stageTl
       .to(sceneIntro, { autoAlpha: 0, scale: .9, y: -40, ease: "power2.in", duration: .5 }, 0)
       .to(sceneHero, { autoAlpha: 1, scale: 1, ease: "power2.out", duration: .55 }, .48);
+    stageST = stageTl.scrollTrigger;   // fim do pin = HERO já revelado (Pedro Bonini)
   } else {
     if (sceneIntro) sceneIntro.style.display = "none";
     if (sceneHero) gsap.set(sceneHero, { autoAlpha: 1, y: 0 });
@@ -483,9 +497,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-  // dock = só indicador de seção: hover mostra o tooltip, mas o clique NÃO navega
+  // dock: clica e navega, mas com scroll lentíssimo pra não quebrar as animações
   document.querySelectorAll(".dock-item").forEach((link) => {
-    link.addEventListener("click", (e) => { e.preventDefault(); });
+    link.addEventListener("click", (e) => {
+      const id = link.getAttribute("href");
+      if (id && id.length > 1 && document.querySelector(id)) {
+        e.preventDefault();
+        // "início" (#hero) cai no FIM do palco pinado = cena HERO revelada (não a intro "Bem-vindo")
+        if (id === "#hero" && stageST) slowScrollToY(stageST.end - 4);
+        else slowScrollTo(id);
+      }
+    });
   });
 
   // demais links âncora (ex.: CTA da hero) rolam suave via Lenis
@@ -495,7 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const id = a.getAttribute("href");
       if (id && id.length > 1 && document.querySelector(id)) {
         e.preventDefault();
-        scrollToTarget(id);
+        slowScrollTo(id);
       }
     });
   });

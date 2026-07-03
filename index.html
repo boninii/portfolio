@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portfolio v39 — favicon PB correto (monograma entrelaçado, 256px/19KB) -->
+<!-- Portfolio v41 — dock clicável com scroll lentíssimo (Lenis, ease-in-out, duração por distância) p/ não quebrar as animações -->
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -314,16 +314,16 @@
     <section id="contact" class="burst">
       <div class="burst-pin" id="burstPin">
         <div class="burst-circle" id="burstCircle"></div>
-        <span class="burst-label" data-i18n="burst.label">Vamos trabalhar</span>
+        <span class="burst-label" data-i18n="burst.label">Vamos trabalhar<br>juntos?</span>
         <span class="burst-hint" id="burstHint">
           <span data-i18n="burst.hint">continue rolando</span>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
         <div class="burst-content" id="burstContent">
           <span class="burst-eyebrow" data-i18n="burst.eyebrow">DISPONÍVEL PARA PROJETOS · 2026</span>
-          <a class="burst-mail" href="mailto:hello@bonini.dev">hello@bonini.dev</a>
+          <a class="burst-mail" href="mailto:contato@obonini.dev.br" data-i18n="contact.email">contato@obonini.dev.br</a>
           <div class="burst-socials">
-            <a href="#">LinkedIn</a><a href="#">GitHub</a><a href="#">Read.cv</a>
+            <a href="https://linkedin.com/in/pedroboninii/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/boninii" target="_blank" rel="noopener">GitHub</a><a href="assets/Curriculo%20-%20Pedro%20Bonini.pdf" target="_blank" rel="noopener">CV</a>
           </div>
           <span class="burst-copy" data-i18n="foot.copy">© 2026 · Pedro Bonini · São Paulo</span>
         </div>
@@ -339,7 +339,7 @@
         <path id="badgeArc" fill="none" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/>
       </defs>
       <text>
-        <textPath href="#badgeArc" startOffset="0" textLength="490" lengthAdjust="spacing" data-i18n="badge.text">VAMOS CONVERSAR · ENTRE EM CONTATO · </textPath>
+        <textPath href="#badgeArc" startOffset="0" data-i18n="badge.text">VAMOS CONVERSAR · ENTRE EM CONTATO · </textPath>
       </text>
     </svg>
     <img class="badge-photo" src="assets/pedro.jpg" alt="Pedro Bonini" />

@@ -117,6 +117,7 @@ a { color: inherit; text-decoration: none; }
   transition: opacity .3s var(--ease), width .28s var(--ease), height .28s var(--ease), margin .28s var(--ease), background .28s var(--ease);
 }
 .cursor.is-on { opacity: 1; }
+.cursor.is-hidden { opacity: 0; }   /* sobre o selo: some pra não inverter a foto (mix-blend) */
 .cursor.is-hover { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
 .cursor.is-down { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; }
 .cursor-label {
@@ -301,7 +302,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   transition: color .35s var(--ease), background .25s var(--ease), transform .25s var(--ease);
 }
 .dock-item svg, .dock-tool .ico { width: 20px; height: 20px; }
-.dock-item { cursor: default; }   /* só indicador de seção — hover mostra o tooltip, mas o clique é bloqueado no JS */
+.dock-item { cursor: pointer; }   /* clica e navega com scroll lentíssimo (JS) */
 .dock-item:hover, .dock-tool:hover { color: var(--ink); transform: translateY(-2px); }
 .dock-item.is-active { color: var(--bg); }
 .dock-item.is-active:hover { color: var(--bg); }
@@ -633,7 +634,9 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   font-family: var(--display);
   font-weight: 500;
   font-variation-settings: "opsz" 144;
-  font-size: clamp(15px, 2vw, 26px);        /* menor: cabe dentro da bola sem cortar */
+  font-size: clamp(15px, 1.9vw, 24px);      /* menor: cabe dentro da bola sem cortar */
+  line-height: 1.05;                        /* duas linhas compactas ("Vamos trabalhar" / "juntos?") */
+  text-align: center;
   letter-spacing: -.01em;
   white-space: nowrap;
   color: var(--bg);                         /* contrasta com o círculo --ink */
@@ -703,14 +706,14 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 }
 .badge-ring text {
   font-family: var(--mono);
-  font-size: 14px;
-  letter-spacing: .02em;
+  font-size: 15px;
+  letter-spacing: .30em;     /* preenche o anel inteiro (~486/490) sem sobrepor no encontro — seal cheio */
   text-transform: uppercase;
   fill: #F2F2F0;             /* padrão: texto claro (fundo escuro); JS troca pra escuro via .on-light */
 }
 .contact-badge.on-light .badge-ring text { fill: #161616; }   /* fundo claro detectado -> texto escuro */
 .badge-photo {
-  width: 65%; height: 65%;
+  width: 56%; height: 56%;                  /* menor: abre respiro entre o rosto e o texto giratório */
   border-radius: 50%;
   object-fit: cover;
   filter: grayscale(1) contrast(1.04);
@@ -743,14 +746,17 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .px-detail { grid-template-rows: 1fr !important; }
   .px-detail-in { opacity: 1 !important; padding-left: 0; }
   .ed-ready .px-list:hover .px-row.ed-in { opacity: 1; }   /* não escurece no touch */
-  /* skills no celular: painéis empilhados (sem galeria horizontal/pin) */
+  /* skills no celular: painéis empilhados (sem galeria horizontal/pin) e full-bleed (sem padding lateral) */
+  .skills-stage { width: 100vw; margin-left: calc(50% - 50vw); }
   .sk-panel { min-height: auto; padding: 12vh 22px; }
   .sk-index { font-size: clamp(150px, 52vw, 320px); right: 5vw; opacity: .1; }
-  .sk-name { font-size: clamp(44px, 16vw, 88px); }
+  .sk-name { font-size: clamp(44px, 16vw, 56px); }   /* trava em 56px p/ não quebrar (ex.: "Responsividade") */
   .sk-desc { font-size: 16px; }
   .section-head--split { flex-direction: column; align-items: flex-start; }
   .section-lead--align { align-self: flex-start; }
   .cls { bottom: 88px; }
+  /* selo giratório cobre o conteúdo e é redundante no toque — some no celular */
+  .contact-badge { display: none; }
 }
 @media (max-width: 520px) {
   .dock { bottom: 16px; }
