@@ -1,5 +1,6 @@
 /* =====================================================
    Portfolio v10 — cinematic, monochrome, dark-first
+   (v42 — modo leve p/ máquinas fracas: ver bloco PERF-LITE)
    ===================================================== */
 :root {
   --bg:           #F4F4F2;
@@ -721,6 +722,24 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 }
 @keyframes badge-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .badge-ring { animation: none; } }
+
+
+/* =====================================================
+   PERF-LITE — modo leve p/ máquinas fracas (v42)
+   Ligado por JS (html.perf-lite) quando o hardware é fraco
+   (poucos núcleos/memória) ou quando o FPS cai no scroll.
+   Desliga os efeitos de composição caros — que re-renderizam
+   a cada frame de scroll — mantendo o layout intacto.
+   ===================================================== */
+/* grade fixa mascarada em tela cheia -> repaint full-screen a cada scroll */
+.perf-lite body::before { display: none; }
+/* backdrop-filter reblura todo o conteúdo atrás do dock a cada frame */
+.perf-lite .dock-pill {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: var(--bg-paper);
+}
+/* bolinha com mix-blend-mode: some no modo leve (cursor nativo volta) */
+.perf-lite .cursor { display: none; }
 
 
 /* =====================================================

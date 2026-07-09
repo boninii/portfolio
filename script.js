@@ -1,5 +1,6 @@
 /* =====================================================
    Portfolio v10 — cinematic script
+   (v42 — modo leve adaptativo p/ máquinas fracas)
    ===================================================== */
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,7 +43,8 @@ const I18N = {
     "skills.lead": "Nove territórios do meu trabalho. Role — eles passam de lado, um por um.",
     "skills.hint": "role para percorrer",
     "cursor.viewProject": "Ver projeto",
- 
+    "cursor.github": "Ver no GitHub",
+
     "skill.frontend.name": "Frontend",
     "skill.frontend.text": "HTML, CSS, JS, React. A camada visível e tudo que segura ela.",
     "skill.backend.name": "Backend &amp; API",
@@ -112,7 +114,8 @@ const I18N = {
     "skills.lead": "Nine territories of my work. Scroll — they slide past, one by one.",
     "skills.hint": "scroll to move across",
     "cursor.viewProject": "View project",
- 
+    "cursor.github": "View on GitHub",
+
     "skill.frontend.name": "Frontend",
     "skill.frontend.text": "HTML, CSS, JS, React. The visible layer and all that holds it up.",
     "skill.backend.name": "Backend &amp; API",
@@ -192,6 +195,38 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
   }
+
+
+  /* ---------- PERF: modo leve p/ máquinas fracas (v42) ---------- */
+  // Desliga os efeitos de composição caros (blur do dock, grade fixa
+  // mascarada, bolinha com mix-blend) que re-renderizam a cada frame de
+  // scroll. Máquinas fortes NÃO são afetadas — só entra quando precisa.
+  const rootEl = document.documentElement;
+  function goLite() {
+    if (rootEl.classList.contains("perf-lite")) return;
+    rootEl.classList.add("perf-lite");
+    if (lenis) lenis.options.lerp = 0.14;   // assenta mais rápido = menos frames de scroll re-rodando os triggers
+  }
+  // 1) checagem estática de hardware (poucos núcleos ou pouca RAM)
+  const cpuCores = navigator.hardwareConcurrency || 8;
+  const devMem   = navigator.deviceMemory || 8;
+  if (cpuCores <= 4 || devMem <= 4) goLite();
+  // 2) watchdog de FPS: pega quem passa na checagem mas ainda engasga no scroll
+  if (window.gsap && !rootEl.classList.contains("perf-lite")) {
+    let slow = 0, win = 0, warm = 0, total = 0;
+    const watch = (time, dt) => {
+      if (dt > 500) return;                 // aba em segundo plano — ignora o salto
+      warm += dt; if (warm < 1200) return;  // ignora o jank inicial de load/intro
+      total += dt; win += dt;
+      if (dt > 32) slow++;                   // frame abaixo de ~30fps
+      if (win >= 1500) {
+        if (slow >= 13) { goLite(); gsap.ticker.remove(watch); return; }  // ~13 frames ruins em 1,5s = trava real
+        slow = 0; win = 0;
+        if (total > 14000) gsap.ticker.remove(watch);   // rodou tempo suficiente e está fluido: para de medir
+      }
+    };
+    gsap.ticker.add(watch);
+  }
   // scroll suave p/ o dock E p/ os links âncora (ex.: CTA "Iniciar conversa"):
   // velocidade ~constante por distância, pra que os scrubs pinados animem sem quebrar.
   const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
@@ -241,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // projetos: cursor vira disco "Em breve" (estudos de caso ainda não publicados)
     document.querySelectorAll(".px-link").forEach((el) => {
       el.addEventListener("mouseenter", () => {
-        if (cursorLabel) cursorLabel.textContent = (I18N[lang] || I18N.pt)["cursor.comingSoon"] || "Em breve";
+        if (cursorLabel) cursorLabel.textContent = (I18N[lang] || I18N.pt)["cursor.github"] || "Ver no GitHub";
         cursor.classList.add("is-view");
       });
       el.addEventListener("mouseleave", () => cursor.classList.remove("is-view"));
@@ -379,14 +414,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!reduce && skillsStage && skillsRail && skPanels.length) {
     const maxX = () => Math.max(1, skillsRail.scrollWidth - skillsStage.clientWidth);
+    // cacheia as refs uma vez — evita 2 querySelector por painel a CADA frame de scroll
+    const skParts = skPanels.map((panel) => ({
+      idx:  panel.querySelector(".sk-index"),
+      body: panel.querySelector(".sk-body")
+    }));
 
     function paintRail(p) {
       const vw = skillsStage.clientWidth;
       const x = p * maxX();
       skPanels.forEach((panel, i) => {
         const k = Math.max(-1.2, Math.min(1.2, (x - i * vw) / vw));   // -1 chegando · 0 ativo · 1 indo embora
-        const idx = panel.querySelector(".sk-index");
-        const body = panel.querySelector(".sk-body");
+        const idx = skParts[i].idx;
+        const body = skParts[i].body;
         if (idx)  idx.style.transform = "translateY(-50%) translateX(" + (-k * 90).toFixed(1) + "px)";   // parallax do número
         if (body) {
           const f = 1 - Math.min(1, Math.abs(k));                     // foco: 1 no centro, 0 fora
